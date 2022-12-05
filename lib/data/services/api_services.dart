@@ -1,19 +1,31 @@
+import 'package:cars_app/data/models/car_model.dart';
+import 'package:cars_app/data/models/data_model.dart';
 import 'dart:convert';
-import 'package:cars_app/data/models/cars_item_model.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as https;
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class ApiService {
-  Future<CarsItemModel> getCarItemModel() async {
+  Future<CarsData> getCarItemModel() async {
     try {
-      Response response =
-          await https.get(Uri.parse("https://api.agify.io/?name=bella"));
-      if (response.statusCode == 200) {
-        CarsItemModel carsItemModel =
-            CarsItemModel.fromJson(jsonDecode(response.body));
-        debugPrint(carsItemModel.id.toString());
-        return carsItemModel;
+      Response response = await http
+          .get(Uri.parse("https://easyenglishuzb.free.mockoapp.net/companies"));
+      if (response.statusCode >= 200) {
+        return CarsData.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e);
+    }
+  }
+
+  Future<CarModel> getSingleCar({required int id}) async {
+    try {
+      Response response = await http
+          .get(Uri.parse("https://easyenglishuzb.free.mockoapp.net/companies/$id"));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return CarModel.fromJson(jsonDecode(response.body));
       } else {
         throw Exception();
       }

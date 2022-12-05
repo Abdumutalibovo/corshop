@@ -1,4 +1,4 @@
-class CarsModel {
+class CarModel {
   int id;
   String carModel;
   String logo;
@@ -7,7 +7,7 @@ class CarsModel {
   String description;
   List<String> carPics;
 
-  CarsModel({
+  CarModel({
     required this.id,
     required this.carModel,
     required this.logo,
@@ -17,8 +17,8 @@ class CarsModel {
     required this.carPics,
   });
 
-  factory CarsModel.fromJson(Map<String, dynamic> json) {
-    return CarsModel(
+  factory CarModel.fromJson(Map<String, dynamic> json) {
+    return CarModel(
       id: json['id'] as int? ?? 0,
       carModel: json['car_model'] as String? ?? "",
       averagePrice: json['average_price'] as int? ??0,

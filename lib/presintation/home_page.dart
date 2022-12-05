@@ -1,9 +1,11 @@
+import 'package:cars_app/presintation/car_info_page.dart';
 import 'package:cars_app/view_model/cars_model_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,43 +13,62 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: const Text("Cars Item",style: TextStyle(color: Colors.black,fontSize: 20),),
+        title: const Text(
+          "Cars Item",
+          style: TextStyle(color: Colors.black, fontSize: 26),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          InkWell(
-            onTap: (){},
-            child: Container(
-              height: 50,
-              width: double.infinity,
-              color: Colors.black54,
-            ),
-          ),
           Consumer<CarsItemViewModel>(
             builder: (context, counter, child) {
-              return Center(
-                child: counter.isLoading
-                    ? const CircularProgressIndicator()
-                    : (counter.carsModel == null
-                    ? const Text("Hozircha data juq")
-                    : Column(
-                  children: [
-                    Text(counter.carsModel!.id.toString()),
-                    Text(counter.carsModel!.description.toString()),
-                    Text(counter.carsModel!.establishedYear.toString()),
-                  ],
-                )),
-              );
+              return counter.isLoading
+                  ? Center(child: const CircularProgressIndicator())
+                  : (counter.carsData == null
+                      ? const Text("Hozircha data juq")
+                      : Container(
+                          margin: EdgeInsets.only(left: 12, right: 12),
+                          height: MediaQuery.of(context).size.height * 0.9,
+                          child: GridView.builder(
+                              itemCount: counter.carsData!.carsItemDate.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                      crossAxisCount: 2),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => CarInfoScreen(
+                                                  id: counter.carModel!.id,
+                                                )));
+                                  },
+                                  child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Center(
+                                      child: Image.network(
+                                        counter
+                                            .carsData!.carsItemDate[index].logo,
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ));
             },
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Provider.of<CarsItemViewModel>(context,listen: true).fetchCarInfo();
-        },
-        child: const Icon(Icons.download),
       ),
     );
   }

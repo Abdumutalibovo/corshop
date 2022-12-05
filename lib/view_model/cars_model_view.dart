@@ -1,4 +1,5 @@
-import 'package:cars_app/data/models/cars_model.dart';
+import 'package:cars_app/data/models/car_model.dart';
+import 'package:cars_app/data/models/data_model.dart';
 import 'package:cars_app/data/repository/car_repository.dart';
 import 'package:flutter/foundation.dart';
 
@@ -12,16 +13,23 @@ class CarsItemViewModel extends ChangeNotifier {
 
   bool isLoading = false;
 
-  CarsModel? carsModel;
+  CarsData? carsData;
+  CarModel? carModel;
 
   fetchCarInfo() async {
     notify(true);
-    carsModel = (await _carRepository.getCarInfo()) as CarsModel;
+    carsData=await _carRepository.getCarInfo();
     notify(false);
   }
 
   notify(bool value) {
     isLoading = value;
     notifyListeners();
+  }
+
+  fetchCarIdInfo({required int id})async{
+    notify(true);
+    carModel=await _carRepository.getCarInfoId(id: id);
+    notify(false);
   }
 }
