@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => CarInfoScreen(
-                                                  id: counter.carModel!.id,
+                                                  id: counter.carsData!.carsItemDate[index].id,
                                                 )));
                                   },
                                   child: Container(
