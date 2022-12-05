@@ -1,7 +1,7 @@
 class CarsItemModel {
   int id;
   String carModel;
-  String averagePrice;
+  int averagePrice;
   String logo;
   int estableshedYear;
 
@@ -17,7 +17,7 @@ class CarsItemModel {
     return CarsItemModel(
       id: json['id'] as int? ?? 0,
       carModel: json['car_model'] as String? ?? "",
-      averagePrice: json['average_price'] as String? ?? "",
+      averagePrice: json['average_price'] as int? ?? 0,
       logo: json['logo'] as String? ?? "",
       estableshedYear: json['established_year'] as int? ?? 0,
     );
