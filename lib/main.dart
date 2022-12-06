@@ -6,14 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  CarRepository carRepository = CarRepository(apiService: ApiService());
+  // CarRepository carRepository = CarRepository(apiService: ApiService());
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_)=>CarsItemViewModel(carRepository: carRepository))
-      ],
-      child: MyApp(),
-    ),
+    // MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider(create: (_)=>CarsItemViewModel(carRepository: carRepository)),
+    //   ],
+    //   child: MyApp(),
+    // ),
+    MyApp(),
   );
 }
 

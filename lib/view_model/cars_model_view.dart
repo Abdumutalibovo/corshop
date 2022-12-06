@@ -10,7 +10,6 @@ class CarsItemViewModel extends ChangeNotifier {
   }
 
   late CarRepository _carRepository;
-
   bool isLoading = false;
 
   List<CarsItemModel> carsItemData=[];
