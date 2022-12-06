@@ -25,27 +25,27 @@ class HomeScreen extends StatelessWidget {
             builder: (context, counter, child) {
               return counter.isLoading
                   ? Center(child: const CircularProgressIndicator())
-                  : (counter.carsData == null
+                  : (counter.carsItemData == null
                       ? const Text("Hozircha data juq")
                       : Container(
                           margin: EdgeInsets.only(left: 12, right: 12),
                           height: MediaQuery.of(context).size.height * 0.9,
                           child: GridView.builder(
-                              itemCount: counter.carsData!.carsItemDate.length,
+                              itemCount: counter.carsItemData.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
+                                var item=counter.carsItemData[index];
                                 return InkWell(
                                   onTap: () {
+                                    counter.fetchCarInfoById(id: item.id);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (_) => CarInfoScreen(
-                                                  id: counter.carsData!.carsItemDate[index].id,
-                                                )));
+                                            builder: (_) => CarInfoScreen()));
                                   },
                                   child: Container(
                                     width: 120,
@@ -56,8 +56,7 @@ class HomeScreen extends StatelessWidget {
                                             BorderRadius.circular(16)),
                                     child: Center(
                                       child: Image.network(
-                                        counter
-                                            .carsData!.carsItemDate[index].logo,
+                                        counter.carsItemData[index].logo,
                                         width: 100,
                                         height: 100,
                                       ),

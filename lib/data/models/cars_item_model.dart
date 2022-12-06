@@ -13,7 +13,7 @@ class CarsItemModel {
     required this.estableshedYear,
   });
 
-  factory CarsItemModel.fromJson(Map<String, dynamic> json) {
+  factory CarsItemModel.fromJson(Map<String, Object?> json) {
     return CarsItemModel(
       id: json['id'] as int? ?? 0,
       carModel: json['car_model'] as String? ?? "",

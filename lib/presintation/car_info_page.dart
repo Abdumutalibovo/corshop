@@ -1,22 +1,15 @@
-import 'package:cars_app/data/models/car_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/cars_model_view.dart';
 
 class CarInfoScreen extends StatefulWidget {
-  final int id;
-  const CarInfoScreen({Key? key, required this.id}) : super(key: key);
+  const CarInfoScreen({Key? key,}) : super(key: key);
 
   @override
   State<CarInfoScreen> createState() => _CarInfoScreenState();
 }
 
 class _CarInfoScreenState extends State<CarInfoScreen> {
-  @override
-  void initState() {
-    Future.microtask(() => context.read<CarsItemViewModel>().fetchCarIdInfo(id: 5));
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +25,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
       body: Consumer<CarsItemViewModel>(
         builder: (context,counter,child){
           return counter.isLoading
-              ? Center(child: const CircularProgressIndicator())
+              ? const Center(child:  CircularProgressIndicator())
               : (counter.carModel == null)
               ? const Text("Hozircha data juq"):
               Column(
